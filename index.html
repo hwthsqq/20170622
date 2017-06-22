@@ -13,10 +13,10 @@
         window.onload=function () {
             var aP=document.getElementsByTagName('p');
 
-            navigator.geolocation.getCurrentPosition(function (ev) {
+            navigator.geolocation.watchPosition(function (ev) {
                 //console.log(ev.coords.longitude)
                 //console.log(ev.coords.latitude)
-                console.log(ev.coords.accuracy)
+                console.log(ev.coords.accuracy);
                 aP[0].innerHTML='经度'+ev.coords.longitude;
                 aP[1].innerHTML='纬度'+ev.coords.latitude;
                 aP[2].innerHTML='精确度'+ev.coords.accuracy;
@@ -24,7 +24,8 @@
                 aP[4].innerHTML='海拔高度精确度'+ev.coords.altitudeAccuracy;
                 aP[5].innerHTML='海拔高度精确度'+ev.coords.heading;
                 aP[6].innerHTML='海拔高度精确度'+ev.coords.speed;
-            },function () {
+            },function (ev) {
+                console.log(ev.code);
 
             })
         };
