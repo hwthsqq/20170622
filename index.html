@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        window.onload=function () {
+            var aP=document.getElementsByTagName('p');
+
+            navigator.geolocation.getCurrentPosition(function (ev) {
+                //console.log(ev.coords.longitude)
+                //console.log(ev.coords.latitude)
+                console.log(ev.coords.accuracy)
+                aP[0].innerHTML='经度'+ev.coords.longitude;
+                aP[1].innerHTML='纬度'+ev.coords.latitude;
+                aP[2].innerHTML='精确度'+ev.coords.accuracy;
+                aP[3].innerHTML='海拔高度'+ev.coords.altitude;
+                aP[4].innerHTML='海拔高度精确度'+ev.coords.altitudeAccuracy;
+                aP[5].innerHTML='海拔高度精确度'+ev.coords.heading;
+                aP[6].innerHTML='海拔高度精确度'+ev.coords.speed;
+            },function () {
+
+            })
+        };
+
+    </script>
+</head>
+<body>
+    <div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
