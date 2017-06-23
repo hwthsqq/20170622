@@ -2,16 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title></title>
     <style>
         * {
             margin: 0;
             padding: 0;
         }
+        @-webkit-keyframes test {
+            0%{-webkit-transform: rotate(0deg)}
+            25%{-webkit-transform: rotate(-20deg)}
+            50%{-webkit-transform: rotate(0deg)}
+            75%{-webkit-transform: rotate(20deg)}
+            100%{-webkit-transform: rotate(0deg)}
+        }
+        div{
+            width:200px;
+            height: 200px;
+            margin: 50px auto;
+            background: #ccc;
+            color: red;
+            font-size: 16px;
+        }
+        .shake{
+            -webkit-animation: .4s all linear 1s;
+        }
     </style>
     <script>
         window.onload=function () {
             var oDiv=document.getElementById('div1');
+
+            var lastX=0;
+            var lastY=0;
+            var lastZ=0;
 
             if(window.DeviceMotionEvent){ //判断有没有重力感应
                 window.addEventListener('devicemotion',function (ev) {
@@ -20,7 +43,13 @@
                     //重力加速度
                     var acc=ev.accelerationIncludingGravity;
 
-                    oDiv.innerHTML='X:'+acc.x+',Y:'+acc.y+',Z:'+acc.z;
+                    if(Math.abs(acc.x-lastX)>20 || Math.abs(acc.y-lastY)>20 || Math.abs(acc.z-lastZ)>20){
+                        oDiv.classList.add('shake');
+
+                        oDiv.addEventListener('webkitAnimationEnd',function () {
+                            oDiv.classList.remove('shake');
+                        },false)
+                    }
 
                 },false)
             }else{
