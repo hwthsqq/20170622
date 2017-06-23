@@ -11,50 +11,28 @@
     </style>
     <script>
         window.onload=function () {
-            var aP=document.getElementsByTagName('p');
-            var aInp=document.getElementsByTagName('input');
-            var timer=null;
+            var oDiv=document.getElementById('div1');
 
-            aInp[0].onclick=function (ev) {
-                timer=navigator.geolocation.watchPosition(function (ev) {
-                    //console.log(ev.coords.longitude)
-                    //console.log(ev.coords.latitude)
-                    console.log(ev.coords.accuracy);
-                    aP[0].innerHTML='经度'+ev.coords.longitude;
-                    aP[1].innerHTML='纬度'+ev.coords.latitude;
-                    aP[2].innerHTML='精确度'+ev.coords.accuracy;
-                    aP[3].innerHTML='海拔高度'+ev.coords.altitude;
-                    aP[4].innerHTML='海拔高度精确度'+ev.coords.altitudeAccuracy;
-                    aP[5].innerHTML='朝向'+ev.coords.heading;
-                    aP[6].innerHTML='速度'+ev.coords.speed;
-                },function (ev) {
-                    console.log(ev.code);
+            if(window.DeviceMotionEvent){ //判断有没有重力感应
+                window.addEventListener('devicemotion',function (ev) {
+                    //当重力感应发生变化的时候
 
-                })
-            };
+                    //重力加速度
+                    var acc=ev.accelerationIncludingGravity;
 
-            aInp[1].onclick=function (ev) {
-                navigator.geolocation.clearWatch(timer);
-            };
+                    oDiv.innerHTML='X:'+acc.x+',Y:'+acc.y+',Z:'+acc.z;
 
-
+                },false)
+            }else{
+                alert('您的设备不支持重力感应')
+            }
         };
+
 
     </script>
 </head>
 <body>
-    <input type="button" value="打开定位">
-    <input type="button" value="关闭定位">
-
-    <div>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-    </div>
+    <div id="div1"></div>
 </body>
 </html>
 
